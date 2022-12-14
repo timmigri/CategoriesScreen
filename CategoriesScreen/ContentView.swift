@@ -13,29 +13,40 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            topAlert
-            if (model.isFinished) { categoriesNumber }
-            else { categoriesList }
+            if (model.isFinished) {
+                finishedTopTitle
+                categoriesNumber
+            }
+            else {
+                topAlert
+                categoriesList
+                
+            }
         }
     }
     
     var topAlert: some View {
-        let title = model.isFinished ? "Выбрано категорий: " : "Отметьте то, что вам интересно, чтобы настроить Дзен"
         return HStack {
-            Text(title)
+            Text(Constants.TopAlert.text)
             if (!model.isFinished) {
                 Spacer()
-                Button("Позже")
+                Button(Constants.TopAlert.LaterButton.text)
                     {
                         model.toggleIsFinished(isLaterButton: true)
                     }
                     .foregroundColor(.primary)
-                    .padding(EdgeInsets(top: DrawingConstants.alertButtonVerticalPadding, leading: DrawingConstants.alertButtonHorizontalPadding, bottom: DrawingConstants.alertButtonVerticalPadding, trailing: DrawingConstants.alertButtonHorizontalPadding))
-                    .background(hexStringToUIColor(hex: colorScheme == .light ? DrawingConstants.alertButtonBackgroundColor : DrawingConstants.alertButtonDarkModeBackgroundColor))
-                    .cornerRadius(25)
+                    .padding(.vertical, Constants.TopAlert.LaterButton.verticalPadding)
+                    .padding(.horizontal, Constants.TopAlert.LaterButton.horizontalPadding)
+                    .background(colorScheme == .light ? Constants.TopAlert.LaterButton.backgroundColor : Constants.TopAlert.LaterButton.darkModeBackgroundColor)
+                    .cornerRadius(Constants.TopAlert.LaterButton.cornerRadius)
             }
         }
-        .padding(10)
+        .padding(Constants.TopAlert.padding)
+    }
+    
+    var finishedTopTitle: some View {
+        return Text(Constants.Finished.topTitleText)
+            .padding(Constants.Finished.topTitlePadding)
     }
     
     var categoriesNumber: some View {
@@ -43,7 +54,7 @@ struct ContentView: View {
             Text(String(model.numberOfSelectedCategories))
                 .font(.largeTitle)
                 .padding(.bottom, 10)
-            Button("Выбрать заново")
+            Button(Constants.Finished.againButtonText)
                 {
                     model.toggleIsFinished()
                 }
@@ -121,27 +132,45 @@ struct ContentView: View {
     }
     
     var continueButton: some View {
-        let color = "#fc8d17"
         return Button
             {
                 model.toggleIsFinished()
             } label: {
-                Text("Продолжить")
+                Text(Constants.ContinueButton.text)
                     .frame(maxWidth: .infinity)
-                    .padding(22)
+                    .padding(Constants.ContinueButton.padding)
                     .foregroundColor(.white)
                     .font(.title2)
             }
-            .background(hexStringToUIColor(hex: color))
-            .cornerRadius(25)
+            .background(Constants.ContinueButton.color)
+            .cornerRadius(Constants.ContinueButton.cornerRadius)
             .padding(.horizontal, 30)
     }
     
-    private struct DrawingConstants {
-        static let alertButtonBackgroundColor = "#e3e8e5"
-        static let alertButtonDarkModeBackgroundColor = "#10151c"
-        static let alertButtonVerticalPadding: CGFloat = 10
-        static let alertButtonHorizontalPadding: CGFloat = 20
+    private struct Constants {
+        struct Finished {
+            static let topTitlePadding: CGFloat = 10
+            static let topTitleText = "Выбрано категорий: "
+            static let againButtonText = "Выбрать заново"
+        }
+        struct TopAlert {
+            static let text = "Отметьте то, что вам интересно, чтобы настроить Дзен"
+            static let padding: CGFloat = 10
+            struct LaterButton {
+                static let text = "Позже"
+                static let backgroundColor = hexStringToUIColor(hex: "#e3e8e5")
+                static let darkModeBackgroundColor = hexStringToUIColor(hex: "#10151c")
+                static let verticalPadding: CGFloat = 10
+                static let horizontalPadding: CGFloat = 20
+                static let cornerRadius: CGFloat = 25
+            }
+        }
+        struct ContinueButton {
+            static let text = "Продолжить"
+            static let color = hexStringToUIColor(hex: "#fc8d17")
+            static let cornerRadius: CGFloat = 25
+            static let padding: CGFloat = 22
+        }
     }
 }
 
@@ -152,12 +181,12 @@ struct CategoryButton: View {
     
     var backgroundColor: Color {
         if (category.isSelected) {
-            return hexStringToUIColor(hex: ButtonConstants.selectedBackgroundColor)
+            return Constants.selectedBackgroundColor
         }
         if (colorScheme == .dark) {
-            return hexStringToUIColor(hex: ButtonConstants.darkModeBackgroundColor)
+            return Constants.darkModeBackgroundColor
         }
-        return hexStringToUIColor(hex: ButtonConstants.backgroundColor)
+        return Constants.backgroundColor
     }
     
     var body: some View {
@@ -165,10 +194,11 @@ struct CategoryButton: View {
             Image(systemName: category.iconName)
             Text(category.label)
         }
-        .padding(EdgeInsets(top: 12, leading: 25, bottom: 12, trailing: 25))
-        .foregroundColor(category.isSelected ? .white : .primary)
+        .padding(.vertical, Constants.verticalPadding)
+        .padding(.horizontal, Constants.horizontalPadding)
+        .foregroundColor(category.isSelected ? Constants.selectedColor : .primary)
         .background(backgroundColor)
-        .cornerRadius(10)
+        .cornerRadius(Constants.cornerRadius)
         .padding(4)
         .onTapGesture {
             withAnimation(.easeInOut(duration: 0.2)) {
@@ -177,10 +207,14 @@ struct CategoryButton: View {
         }
     }
     
-    private struct ButtonConstants {
-        static let backgroundColor = "#e3e8e5"
-        static let darkModeBackgroundColor = "#10151c"
-        static let selectedBackgroundColor = "#fc8d17"
+    private struct Constants {
+        static let backgroundColor = hexStringToUIColor(hex: "#e3e8e5")
+        static let selectedColor = Color.white
+        static let darkModeBackgroundColor = hexStringToUIColor(hex: "#10151c")
+        static let selectedBackgroundColor = hexStringToUIColor(hex: "#fc8d17")
+        static let cornerRadius: CGFloat = 10
+        static let verticalPadding: CGFloat = 12
+        static let horizontalPadding: CGFloat = 25
     }
 }
 
