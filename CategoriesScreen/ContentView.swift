@@ -33,6 +33,7 @@ struct ContentView: View {
                 Button(Constants.TopAlert.LaterButton.text)
                     {
                         model.toggleIsFinished(isLaterButton: true)
+                        shownCount = 0
                     }
                     .foregroundColor(.primary)
                     .padding(.vertical, Constants.TopAlert.LaterButton.verticalPadding)
@@ -64,6 +65,7 @@ struct ContentView: View {
     }
     
     @State var scrollViewOffset: CGFloat = .zero
+    @State var shownCount = 0
     var categoriesList: some View {
         var x: CGFloat = .zero
         var y: CGFloat = .zero
@@ -81,10 +83,11 @@ struct ContentView: View {
                 ScrollView {
                     ZStack(alignment: .topLeading) {
                         Group {
-                            ForEach(model.categories) { category in
+                            ForEach(Array(model.categories.enumerated()), id: \.element) { index, category in
                                 CategoryButton(category: category) { id in
                                     model.toggleCategory(id)
                                 }
+                                .opacity(index < shownCount ? 1 : 0)
                                 .alignmentGuide(.leading) { d in
                                     if (abs(x - d.width - 2 * horizontalPadding) > geometry.size.width) {
                                         x = 0
@@ -109,6 +112,10 @@ struct ContentView: View {
                         }
                         .padding(.bottom, model.numberOfSelectedCategories > 0 ? 75 : 0)
                         .zIndex(1)
+                        .onAppear {
+                            animateShowingCategories()
+                        }
+                
                         
                         if (model.numberOfSelectedCategories > 0) {
                             continueButton
@@ -124,8 +131,19 @@ struct ContentView: View {
                 .padding(.leading, horizontalPadding)
                 .coordinateSpace(name: "categoriesScroll")
                 .onPreferenceChange(ScrollViewOffsetPreferenceKey.self) { value in
-                    print(value)
                     scrollViewOffset = value
+                }
+            }
+        }
+    }
+    
+    let showingCategoriesTime: Double = 0.4 // 1 second
+    func animateShowingCategories() {
+        for i in model.categories.indices {
+            let after = showingCategoriesTime / Double(model.categories.count) * Double(i)
+            DispatchQueue.main.asyncAfter(deadline: .now() + after) {
+                withAnimation(.easeInOut(duration: 0.1)) {
+                    shownCount += 1
                 }
             }
         }
@@ -135,6 +153,7 @@ struct ContentView: View {
         return Button
             {
                 model.toggleIsFinished()
+                shownCount = 0
             } label: {
                 Text(Constants.ContinueButton.text)
                     .frame(maxWidth: .infinity)

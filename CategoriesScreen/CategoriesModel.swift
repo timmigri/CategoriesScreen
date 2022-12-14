@@ -11,7 +11,7 @@ struct CategoriesModel {
     private(set) var categories = [Category]()
     var isFinished = false
     
-    struct Category: Identifiable {
+    struct Category: Identifiable, Hashable {
         var id: Int
         var label: String
         var iconName: String
