@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC80E4ED294A501A0052D1E1 /* ShowTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC80E4EC294A501A0052D1E1 /* ShowTime.swift */; };
 		AC96680C294502530056B6C4 /* CategoriesScreenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC96680B294502530056B6C4 /* CategoriesScreenApp.swift */; };
 		AC96680E294502530056B6C4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC96680D294502530056B6C4 /* ContentView.swift */; };
 		AC966810294502550056B6C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC96680F294502550056B6C4 /* Assets.xcassets */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AC80E4EC294A501A0052D1E1 /* ShowTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTime.swift; sourceTree = "<group>"; };
 		AC966808294502530056B6C4 /* CategoriesScreen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CategoriesScreen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC96680B294502530056B6C4 /* CategoriesScreenApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesScreenApp.swift; sourceTree = "<group>"; };
 		AC96680D294502530056B6C4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -104,8 +106,9 @@
 				AC96680D294502530056B6C4 /* ContentView.swift */,
 				AC966835294502B20056B6C4 /* CategoriesModel.swift */,
 				AC966837294503ED0056B6C4 /* CategoriesViewModel.swift */,
-				AC966811294502550056B6C4 /* Preview Content */,
 				AC96683929450AB70056B6C4 /* UIHelpers.swift */,
+				AC966811294502550056B6C4 /* Preview Content */,
+				AC80E4EC294A501A0052D1E1 /* ShowTime.swift */,
 			);
 			path = CategoriesScreen;
 			sourceTree = "<group>";
@@ -269,6 +272,7 @@
 				AC966836294502B20056B6C4 /* CategoriesModel.swift in Sources */,
 				AC96683A29450AB70056B6C4 /* UIHelpers.swift in Sources */,
 				AC96680E294502530056B6C4 /* ContentView.swift in Sources */,
+				AC80E4ED294A501A0052D1E1 /* ShowTime.swift in Sources */,
 				AC966838294503ED0056B6C4 /* CategoriesViewModel.swift in Sources */,
 				AC96680C294502530056B6C4 /* CategoriesScreenApp.swift in Sources */,
 			);
