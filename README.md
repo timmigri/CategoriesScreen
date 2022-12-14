@@ -1,5 +1,5 @@
 # CategoriesScreen
 VK Cup 2022 1 Round
 
-https://user-images.githubusercontent.com/26580833/207686710-b64d5159-83d2-42c8-8fcd-faa23e22b277.mp4
+https://user-images.githubusercontent.com/26580833/207697761-c7e0269d-f037-4535-ac29-e8f24a0ddc1b.mp4
 
